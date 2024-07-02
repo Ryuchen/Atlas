@@ -21,18 +21,6 @@ actions:
   ## SCRIPTS                                                                                  ##
   ##############################################################################################
 
-  - !writeStatus: {status: 'Disabling Printing', option: 'disable-printing'}
-  - !cmd:
-    command: '"AtlasDesktop\3. General Configuration\Printing\Disable Printing.cmd" /silent'
-    option: 'disable-printing'
-    exeDir: true
-    wait: true
-  - !writeStatus: {status: 'Disabling Bluetooth', option: 'disable-bluetooth'}
-  - !cmd:
-    command: '"AtlasDesktop\3. General Configuration\Bluetooth\Disable Bluetooth.cmd" /silent'
-    option: 'disable-bluetooth'
-    exeDir: true
-    wait: true
   - !writeStatus: {status: 'Disabling File Sharing'}
   - !powerShell:
     command: '.\AtlasModules\Scripts\ScriptWrappers\DisableFileSharing.ps1 -Silent'
@@ -57,7 +45,6 @@ actions:
     # ------ Microsoft recommendation - 'Do not disable' -----
   - !service: {name: 'diagnosticshub.standardcollector.service', operation: change, startup: 4}
   - !service: {name: 'WerSvc', operation: change, startup: 4} 
-  - !service: {name: 'DispBrokerDesktopSvc', operation: change, startup: 4} 
 
     # ------- Microsoft recommendation - 'No guideance' ------
   - !service: {name: 'wercplsupport', operation: change, startup: 4}
@@ -69,7 +56,7 @@ actions:
 
   - !writeStatus: {status: 'Configuring drivers'}
 
-    # NetBios support can be enabled with the file sharing script
   - !service: {name: 'GpuEnergyDrv', operation: change, startup: 4}
+    # NetBios support can be enabled with the file sharing script
   - !service: {name: 'NetBT', operation: change, startup: 4}
   - !service: {name: 'Telemetry', operation: change, startup: 4}
